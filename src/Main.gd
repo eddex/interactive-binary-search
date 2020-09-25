@@ -60,15 +60,15 @@ func _on_AnimateOneStepButton_pressed():
         self.left,
         self.right)
 
-    print(result)
+    var compareMessage: String = str("Compare search target color (", int(self.searchedColor/1000), ") and color at search index (", int(self.colors[self.get_search_index()]/1000), ")\n")
     if self.left != result[0] && self.right == result[1]:
         self.logTextBox.text += str(
-            "Compare search target color (", int(self.searchedColor/1000), ") and color at search index (", int(self.colors[self.get_search_index()]/1000), ")\n",
+            compareMessage,
             "Search target color is bigger than color at search index.\n",
             "Continuing search on the right side of the search index.\n")
     elif self.left == result[0] && self.right != result[1] && result[2] == -1:
         self.logTextBox.text += str(
-            "Compare search target color (", int(self.searchedColor/1000), ") and color at search index (", int(self.colors[self.get_search_index()]/1000), ")\n",
+            compareMessage,
             "Search target color is smaller than color at search index.\n",
             "Continuing search on the left side of the search index.\n")
 
@@ -79,11 +79,12 @@ func _on_AnimateOneStepButton_pressed():
 
     if result[2] != -1:
         print(str("item found at index: ", result[2]))
-        self.logTextBox.text += str("Found color ", int(self.searchedColor/1000), " at index ", result[2], ".\n")
+        self.logTextBox.text += str(compareMessage, "Found color ", int(self.searchedColor/1000), " at index ", result[2], ".\n")
         return
 
     if self.left <= self.right:
         # target not found yet, move to next search position
+        yield(get_tree().create_timer(0.5), "timeout")
         self.update_arrow_position()
     else:
         self.logTextBox.text += str("\nColor ", int(self.searchedColor/1000), " was not found in the search space.\n")
