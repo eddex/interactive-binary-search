@@ -1,0 +1,89 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://resources/fonts/Roboto-Regular.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://src/ColorSquare.gd" type="Script" id=2]
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0, 0, 0, 1 )
+draw_center = false
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.8, 0.8, 0.8, 1 )
+
+[sub_resource type="DynamicFont" id=2]
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.8, 0.8, 0.8, 1 )
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.156863, 0.156863, 0.156863, 0.784314 )
+
+[node name="ColorSquare" type="Control"]
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 150.0
+margin_bottom = 150.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="ColorRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="ColorRect"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -15.0
+margin_bottom = 15.0
+custom_styles/normal = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "00000000"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PositionLabel" type="Label" parent="ColorRect"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -15.0
+margin_top = -30.0
+margin_right = 15.0
+margin_bottom = -5.0
+custom_styles/normal = SubResource( 5 )
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "?"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Overlay" type="Panel" parent="."]
+visible = false
+margin_right = 150.0
+margin_bottom = 150.0
+custom_styles/panel = SubResource( 4 )

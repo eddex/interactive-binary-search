@@ -1,0 +1,156 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://src/Main.gd" type="Script" id=1]
+[ext_resource path="res://resources/fonts/button_font_roboto_regular_32.tres" type="DynamicFont" id=2]
+[ext_resource path="res://resources/img/arrow.png" type="Texture" id=3]
+[ext_resource path="res://resources/fonts/Roboto-Regular.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://src/ColorSquare.tscn" type="PackedScene" id=5]
+[ext_resource path="res://resources/fonts/button_font_roboto_regular_24.tres" type="DynamicFont" id=6]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.12549, 0.12549, 0.12549, 1 )
+border_width_left = 15
+border_width_top = 10
+border_width_right = 15
+border_width_bottom = 10
+border_color = Color( 0.12549, 0.12549, 0.12549, 1 )
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="DynamicFont" id=2]
+size = 20
+outline_color = Color( 0.12549, 0.12549, 0.12549, 1 )
+font_data = ExtResource( 4 )
+
+[node name="Main" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="."]
+margin_left = 25.0
+margin_top = 25.0
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = ExtResource( 2 )
+text = "Binary Search"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SearchSpaceLabel" type="Label" parent="."]
+anchor_top = 0.07
+anchor_bottom = 0.07
+margin_left = 25.0
+margin_top = -1.12244
+margin_right = 245.0
+margin_bottom = 27.8776
+custom_fonts/font = ExtResource( 6 )
+text = "Search space (ordered list of colors, identified by an integer number):"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CurrentPositionArrow" type="Sprite" parent="."]
+visible = false
+position = Vector2( 386.127, 314.289 )
+texture = ExtResource( 3 )
+
+[node name="TargetSelectLabel" type="Label" parent="."]
+anchor_top = 0.35
+anchor_bottom = 0.35
+margin_left = 25.0
+margin_top = -1.12244
+margin_right = 245.0
+margin_bottom = 27.8776
+custom_fonts/font = ExtResource( 6 )
+text = "1) Select search target:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RandomExistingItemButton" type="Button" parent="."]
+anchor_top = 0.4
+anchor_right = 0.25
+anchor_bottom = 0.47
+margin_left = 25.0
+custom_fonts/font = ExtResource( 6 )
+text = "Random item from the list"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RandomMissingItemButton" type="Button" parent="."]
+anchor_top = 0.5
+anchor_right = 0.25
+anchor_bottom = 0.57
+margin_left = 25.0
+custom_fonts/font = ExtResource( 6 )
+text = "Random item that's not in the list"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SearchTarget" parent="." instance=ExtResource( 5 )]
+anchor_left = 0.32
+anchor_top = 0.415
+anchor_right = 0.32
+anchor_bottom = 0.415
+
+[node name="SearchLabel" type="Label" parent="."]
+anchor_top = 0.65
+anchor_bottom = 0.65
+margin_left = 25.0
+margin_top = -1.12244
+margin_right = 245.0
+margin_bottom = 27.8776
+custom_fonts/font = ExtResource( 6 )
+text = "2) Search the target in the search space:"
+
+[node name="AnimateOneStepButton" type="Button" parent="."]
+anchor_top = 0.7
+anchor_right = 0.45
+anchor_bottom = 0.8
+margin_left = 25.0
+margin_right = 6.10352e-05
+mouse_default_cursor_shape = 2
+custom_fonts/font = ExtResource( 2 )
+disabled = true
+text = "Next step"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ResetButton" type="Button" parent="."]
+anchor_top = 0.85
+anchor_right = 0.45
+anchor_bottom = 0.95
+margin_left = 25.0
+mouse_default_cursor_shape = 2
+custom_fonts/font = ExtResource( 2 )
+disabled = true
+text = "Reset"
+
+[node name="LogTextbox" type="RichTextLabel" parent="."]
+anchor_left = 0.5
+anchor_top = 0.35
+anchor_right = 0.95
+anchor_bottom = 0.95
+custom_styles/normal = SubResource( 1 )
+custom_fonts/normal_font = SubResource( 2 )
+meta_underlined = false
+text = "Starting binary search in the middle of the search space
+"
+scroll_following = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="RandomExistingItemButton" to="." method="_on_RandomExistingItemButton_pressed"]
+[connection signal="pressed" from="RandomMissingItemButton" to="." method="_on_RandomMissingItemButton_pressed"]
+[connection signal="pressed" from="AnimateOneStepButton" to="." method="_on_AnimateOneStepButton_pressed"]
+[connection signal="pressed" from="ResetButton" to="." method="_on_ResetButton_pressed"]
