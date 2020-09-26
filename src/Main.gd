@@ -10,6 +10,7 @@ var arrow: TextureRect
 var searchTarget: ColorSquare
 var searchedColor: int
 var logTextBox: RichTextLabel
+var nextStepButton: Button
 var random: RandomNumberGenerator = RandomNumberGenerator.new()
 
 # colors represented as integers, sorted by integer value
@@ -35,6 +36,7 @@ func _ready():
     self.arrow = self.get_node("CurrentPositionArrow")
     self.searchTarget = self.get_node("SearchTarget")
     self.logTextBox = self.get_node("LogTextbox")
+    self.nextStepButton = self.get_node("AnimateOneStepButton")
 
     self.random.randomize()
     self.change_search_target(
@@ -54,6 +56,9 @@ func _ready():
 
 
 func _on_AnimateOneStepButton_pressed():
+
+    self.nextStepButton.disabled = true
+
     var result: Array = self.binarySearch.search_iterative_single_step(
         self.colors,
         self.searchedColor,
@@ -86,6 +91,7 @@ func _on_AnimateOneStepButton_pressed():
         # target not found yet, move to next search position
         yield(get_tree().create_timer(0.5), "timeout")
         self.update_arrow_position()
+        self.nextStepButton.disabled = false
     else:
         self.logTextBox.text += str("\nColor ", int(self.searchedColor/1000), " was not found in the search space.\n")
 
@@ -96,6 +102,7 @@ func _on_ResetButton_pressed():
     for item in self.sortedItems:
         item.reset_alpha()
     self.update_arrow_position()
+    self.nextStepButton.disabled = false
 
 
 func _on_RandomExistingItemButton_pressed():
