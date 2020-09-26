@@ -6,7 +6,7 @@ var colorSquareScene = preload("res://src/ColorSquare.tscn")
 var sortedItems: Array
 var left: int = 0
 var right: int
-var arrow: Sprite
+var arrow: TextureRect
 var searchTarget: ColorSquare
 var searchedColor: int
 var logTextBox: RichTextLabel
@@ -42,7 +42,7 @@ func _ready():
 
     for i in range(len(self.colors)):
         yield(get_tree().create_timer(0.1), "timeout")
-        self.spawn_color_square(25 + i*170, 110, colors[i], i)
+        self.spawn_color_square(25 + i*170, colors[i], i)
 
     self.get_node("AnimateOneStepButton").disabled = false
     self.get_node("ResetButton").disabled = false
@@ -115,7 +115,7 @@ func _on_RandomMissingItemButton_pressed():
 
 func update_arrow_position():
     var mid: int = self.get_search_index()
-    self.arrow.position = Vector2(100 + mid*170, 300)
+    self.arrow.rect_position = Vector2(68 + mid*170, self.arrow.rect_position.y)
     self.logTextBox.text += str("New search index: ", mid, "\n\n")
 
 
@@ -123,9 +123,10 @@ func get_search_index():
     return self.left + ((self.right - self.left) / 2)
 
 
-func spawn_color_square(x: int, y: int, color: int, index: int):
+func spawn_color_square(x: int, color: int, index: int):
     var item: ColorSquare = self.colorSquareScene.instance()
-    item.rect_position = Vector2(x, y)
+    item.rect_position = Vector2(x, 0)
+    item.anchor_top = 0.11
     item.set_color(color)
     item.set_index(index)
     self.sortedItems.append(item)
